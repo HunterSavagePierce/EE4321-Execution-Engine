@@ -12,6 +12,8 @@
 // - ChatGPT 4o
 ///////////////////////////////////////////////////////////////////////////////
 
+
+
 module IntegerAlu(Clk,IntDataOut,ExecDataIn, address, nRead,nWrite, nReset);
 
     input logic nRead, nWrite, nReset, Clk;
@@ -24,10 +26,7 @@ module IntegerAlu(Clk,IntDataOut,ExecDataIn, address, nRead,nWrite, nReset);
     logic [255:0] ALU_s1;       // Source 1 for ALU operation
     logic [255:0] ALU_result;   // Result of ALU operation
     
-    typedef enum logic [2:0] {
-        LOAD_FIRST,         // Load First Integer
-        LOAD_SECOND,        // Load Second Integer
-        OUTPUT_RESULT,      // Output Integer ALU Result
+    typedef enum logic [1:0] {
         ADDITION,           // Perform Addition Operand
         SUBTRACTION,        // Perform Subtraction Operand
         MULTIPLICATION,     // Perform Multiplication Operand
@@ -43,51 +42,40 @@ module IntegerAlu(Clk,IntDataOut,ExecDataIn, address, nRead,nWrite, nReset);
             ALU_s1 <= 256'h0;
             ALU_result <= 256'h0;
         end else begin
-            if (address[15:12] == AluEn) begin
-                case (ALU_select)
-                    LOAD_FIRST: begin
-                        if (~nWrite) begin
-                            ALU_s0 <= ExecDataIn; // Load first operand
-                        end
-                    end
-                    LOAD_SECOND: begin
-                        if (~nWrite) begin
-                            ALU_s1 <= ExecDataIn; // Load second operand
-                        end
-                    end
-                    ADDITION: begin
-                        if (~nWrite) begin
-                            ALU_result <= ALU_s0 + ALU_s1; // Perform addition
-                        end
-                    end
-                    SUBTRACTION: begin
-                        if (~nWrite) begin
-                            ALU_result <= ALU_s0 - ALU_s1; // Perform subtraction
-                        end
-                    end
-                    MULTIPLICATION: begin
-                        if (~nWrite) begin
-                            ALU_result <= ALU_s0 * ALU_s1; // Perform multiplication
-                        end
-                    end
-                    DIVISION: begin
-                        if (~nWrite) begin
-                            ALU_result <= (ALU_s1 != 0) ? ALU_s0 / ALU_s1 : 256'h0; // Perform division with check
-                        end
-                    end
-                    OUTPUT_RESULT: begin
-                        if (~nRead) begin
-                            IntDataOut <= ALU_result; // Output result
-                        end
-                    end
-                    default: begin
-                        // Default case for safety, no operation
-                        ALU_result <= ALU_result;
-                    end
-                endcase
+
+            if (address[15:12] == IntAlu) begin
+                if (address[11:0] == AluStatusIn) begin
+                
+                end 
+                else if (address[11:0] == AluStatusOut) begin
+                
+                end
+                else if (address[11:0] == ALU_Source1) begin
+                
+                end
+                else if (address[11:0] == ALU_Source2) begin
+                
+                end
+                else if (address[11:0] == ALU_Result) begin
+                
+                end
+                else if (address[11:0] == Overflow_err) begin
+                
+                end
+                if (~nWrite) begin
+                    case (ALU_select)
+                        ADDITION: ALU_result <= ALU_s0 + ALU_s1;
+                        SUBTRACTION: ALU_result <= ALU_s0 - ALU_s1;
+                        MULTIPLICATION: ALU_result <= ALU_s0 * ALU_s1;
+                        DIVISION: ALU_result <= (ALU_s1 != 0) ? ALU_s0 / ALU_s1 : 256'h0;
+
+                        default: begin
+                            // Default case for safety, no operation
+                            ALU_result <= ALU_result;
+                        end 
+                    endcase
+                end
             end
         end
     end
-
-
 endmodule

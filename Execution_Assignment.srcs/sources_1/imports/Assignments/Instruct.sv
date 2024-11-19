@@ -12,6 +12,13 @@
 // - ChatGPT 4o
 ///////////////////////////////////////////////////////////////////////////////
 
+parameter AluStatusIn = 0;
+parameter AluStatusOut = 1;
+parameter ALU_Source1 = 2;
+parameter ALU_Source2 = 3;
+parameter ALU_Result = 4;
+parameter Overflow_err = 5;
+
 parameter MainMemEn = 0;
 parameter RegisterEn = 1;
 parameter InstrMemEn = 2;
@@ -20,12 +27,7 @@ parameter ExecuteEn = 4;
 parameter IntAlu = 5;
 
 // Alu Register setup // same register sequence for both ALU's 
-parameter AluStatusIn = 0;
-parameter AluStatusOut = 1;
-parameter ALU_Source1 = 2;
-parameter ALU_Source2 = 3;
-parameter  ALU_Result = 4;
-parameter Overflow_err = 5;
+
 
 //////////////////////////////
 //Moved stop to third instruction for this example
@@ -49,19 +51,18 @@ parameter Instruct2 = 32'h FF_00_00_00;
 
 
 module InstructionMemory(Clk,Dataout, address, nRead,nReset);
-// NOTE the lack of datain and write. This is because this is a ROM model
+    // NOTE the lack of datain and write. This is because this is a ROM model
 
-input logic nRead, nReset, Clk;
-input logic [15:0] address;
+    input logic nRead, nReset, Clk;
+    input logic [15:0] address;
+    
+    output logic [31:0] Dataout; // 1 - 32 it instructions at a time.
 
-output logic [31:0] Dataout; // 1 - 32 it instructions at a time.
+    logic [31:0]InstructMemory[10]; // this is the physical memory
 
-  logic [31:0]InstructMemory[10]; // this is the physical memory
+    // This memory is designed to be driven into a data multiplexor. 
 
-// This memory is designed to be driven into a data multiplexor. 
-
-always_ff @(negedge Clk or negedge nReset)
-    begin
+    always_ff @(negedge Clk or negedge nReset) begin
         if (!nReset)
             Dataout = 0;
         else begin
@@ -74,8 +75,7 @@ always_ff @(negedge Clk or negedge nReset)
         end
     end // from negedge nRead	
 
-always @(negedge nReset)
-    begin
+    always @(negedge nReset) begin
         //	set in the default instructions 
         InstructMemory[0] = Instruct1;  	
         InstructMemory[1] = Instruct2;  	
