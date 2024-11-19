@@ -45,28 +45,13 @@ module Execution(Clk,InstructDataIn,MemDataIn,IntDataIn,ExecDataOut, address, nR
     logic [7:0] opcode, dest, src1, src2;
     logic [255:0] src1Data, src2Data, result;
     
-    logic [15:0] ProgCount;
-    // instruction: OPcode :: dest :: src1 :: src2 Each section is 8 bits.
-    //Stop::FFh::00::00::00
-    //MMult::00h::Reg/mem::Reg/mem::Reg/mem
-    //Madd::01h::Reg/mem::Reg/mem::Reg/mem
-    //Msub::02h::Reg/mem::Reg/mem::Reg/mem
-    //Mtranspose::03h::Reg/mem::Reg/mem::Reg/mem
-    //MScale::04h::Reg/mem::Reg/mem::Reg/mem
-    //MScaleImm::05h:Reg/mem::Reg/mem::Immediate
-    //IntAdd::10h::Reg/mem::Reg/mem::Reg/mem
-    //IntSub::11h::Reg/mem::Reg/mem::Reg/mem
-    //IntMult::12h::Reg/mem::Reg/mem::Reg/mem
-    //IntDiv::13h::Reg/mem::Reg/mem::Reg/mem
-    
+    logic [15:0] ProgCount;  
     
     typedef enum logic [2:0] {
-        RESET, FETCH, DECODE, FETCH_SRC1, FETCH_SRC2, EXECUTE, WRITE_BACK, HALT
+        RESET, FETCH, DECODE, FETCH_SRC1, FETCH_SRC2, EXECUTE, WRITE_BACK
     } state_t;
 
     state_t current_state, next_state;
-
-    
 
     always_ff @(negedge Clk) begin
         case (current_state)
@@ -88,13 +73,13 @@ module Execution(Clk,InstructDataIn,MemDataIn,IntDataIn,ExecDataOut, address, nR
                 src1 = InstructDataIn[15:8];
                 src2 = InstructDataIn[7:0];
                 
-                if (opcode == IntAdd) begin
+                if (opcode == Stop) begin
+                    $stop;
+                end else begin
                     address[15:12] = MainMemEn;
                     address[11:0] = src1;
                     nRead = 0;
                     next_state = FETCH_SRC1;
-                end else begin
-                    next_state = HALT;
                 end
             end
             FETCH_SRC1: begin
@@ -123,14 +108,10 @@ module Execution(Clk,InstructDataIn,MemDataIn,IntDataIn,ExecDataOut, address, nR
                 ProgCount += 1;
                 next_state = FETCH; 
             end
-            HALT: begin
-                // Stop execution
-                next_state = HALT;
-            end
         endcase
     end
     
-    always_ff @(negedge Clk or negedge nReset) begin
+    always_ff @(posedge Clk or negedge nReset) begin
         if (!nReset) begin
             current_state <= RESET;
         end
