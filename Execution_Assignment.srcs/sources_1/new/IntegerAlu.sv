@@ -12,6 +12,15 @@
 // - ChatGPT 4o
 ///////////////////////////////////////////////////////////////////////////////
 
-module IntegerAlu();
+module IntegerAlu(Clk,IntDataOut,ExecDataIn, address, nRead,nWrite, nReset);
+
+input logic nRead, nWrite, nReset, Clk;
+input logic [15:0] address;
+input logic [255:0] ExecDataIn;
+
+output logic [255:0] IntDataOut;
+
+
+
 
 endmodule

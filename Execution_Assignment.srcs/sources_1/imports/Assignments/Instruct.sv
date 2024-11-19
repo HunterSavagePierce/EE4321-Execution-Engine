@@ -60,31 +60,26 @@ output logic [31:0] Dataout; // 1 - 32 it instructions at a time.
 
 // This memory is designed to be driven into a data multiplexor. 
 
-  always_ff @(negedge Clk or negedge nReset)
-begin
-  if (!nReset)
-    Dataout = 0;
-  else begin
-  if(address[15:12] == InstrMemEn) // talking to Instruction IntstrMemEn
-		begin
-			if(~nRead)begin
-				Dataout <= InstructMemory[address[11:0]]; // data will reamin on dataout until it is changed.
-			end
-		end
-	end
-end // from negedge nRead	
+always_ff @(negedge Clk or negedge nReset)
+    begin
+        if (!nReset)
+            Dataout = 0;
+        else begin
+            if(address[15:12] == InstrMemEn) // talking to Instruction IntstrMemEn
+            begin
+                if(~nRead)begin
+                    Dataout <= InstructMemory[address[11:0]]; // data will reamin on dataout until it is changed.
+                end
+            end
+        end
+    end // from negedge nRead	
 
 always @(negedge nReset)
-begin
-//	set in the default instructions 
-//
-	InstructMemory[0] = Instruct1;  	
-	InstructMemory[1] = Instruct2;  	
-
-	
-
-	
-end 
+    begin
+        //	set in the default instructions 
+        InstructMemory[0] = Instruct1;  	
+        InstructMemory[1] = Instruct2;  	
+    end 
 
 endmodule
 
