@@ -1,8 +1,16 @@
-// Mark W. Welker
-// Matrix_add assignment
-// Spring 2021
+///////////////////////////////////////////////////////////////////////////////
+// Project: Execution Engine
+// Author: Hunter Savage-Pierce
+// Date: November 18th, 2024
+// Version: 1.0
+///////////////////////////////////////////////////////////////////////////////
+// Description:
+// Main Memory Implementation File for a Custom Execution Engine
 //
-//
+// References:
+// - Mark W. Welker EE4321 Execution Engine Supplied Code Texas State University
+// - ChatGPT 4o
+///////////////////////////////////////////////////////////////////////////////
 
 parameter    matrixMemory0 = 256'h0004_000c_0004_0022_0007_0006_000b_0009_0009_0002_0008_000d_0002_000f_0010_0003;
 parameter    matrixMemory1 = 256'h0017_002d_0043_0016_0007_0006_0004_0001_0012_0038_000d_000c_0003_0005_0007_0009;

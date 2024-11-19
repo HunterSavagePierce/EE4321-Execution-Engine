@@ -1,6 +1,16 @@
-// Mark W Welker
-// Generic Test bench It drives only clock and reset.
-
+///////////////////////////////////////////////////////////////////////////////
+// Project: Execution Engine
+// Author: Hunter Savage-Pierce
+// Date: November 18th, 2024
+// Version: 1.0
+///////////////////////////////////////////////////////////////////////////////
+// Description:
+// Test File for a Custom Execution Engine
+//
+// References:
+// - Mark W. Welker EE4321 Execution Engine Supplied Code Texas State University
+// - ChatGPT 4o
+///////////////////////////////////////////////////////////////////////////////
 
 module TestMatrix  (Clk,nReset);
 

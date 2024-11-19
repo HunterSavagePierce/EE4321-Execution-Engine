@@ -1,13 +1,16 @@
-
-// Mark W. Welker
-// HDL 4321 Spring 2021
-// Matrix addition assignment top module
+///////////////////////////////////////////////////////////////////////////////
+// Project: Execution Engine
+// Author: Hunter Savage-Pierce
+// Date: November 18th, 2024
+// Version: 1.0
+///////////////////////////////////////////////////////////////////////////////
+// Description:
+// Top File for a Custom Execution Engine
 //
-// Main memory MUST be allocated in the mainmemory module as per teh next line.
-//  logic [255:0]MainMemory[12]; // this is the physical memory
-//
-
-
+// References:
+// - Mark W. Welker EE4321 Execution Engine Supplied Code Texas State University
+// - ChatGPT 4o
+///////////////////////////////////////////////////////////////////////////////
 
 module top ();
 

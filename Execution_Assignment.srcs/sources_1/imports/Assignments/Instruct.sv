@@ -1,13 +1,16 @@
-// MArk W. welker
-// Instruction memory. 
-// holds the instructions that the processor will execute.
+///////////////////////////////////////////////////////////////////////////////
+// Project: Execution Engine
+// Author: Hunter Savage-Pierce
+// Date: November 18th, 2024
+// Version: 1.0
+///////////////////////////////////////////////////////////////////////////////
+// Description:
+// Instruction Memory Implementation File for a Custom Execution Engine
 //
-// the address lines are generic and each module must handle thier own decode. 
-// The address bus is large enough that each module can contain a local address decode. This will save on multiple enmables. 
-// bit 11-0 are for adressing inside each unit.
-// nWrite = 0 means databus is being written into the part on the falling edge of write
-// nRead = 0 means it is expected to drive the databus while this signal is low and the address is correct until the nRead goes high independent of addressd bus.
-
+// References:
+// - Mark W. Welker EE4321 Execution Engine Supplied Code Texas State University
+// - ChatGPT 4o
+///////////////////////////////////////////////////////////////////////////////
 
 parameter MainMemEn = 0;
 parameter RegisterEn = 1;

@@ -1,26 +1,17 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/18/2024 08:46:09 PM
-// Design Name: 
-// Module Name: IntegerAlu
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// Project: Execution Engine
+// Author: Hunter Savage-Pierce
+// Date: November 18th, 2024
+// Version: 1.0
+///////////////////////////////////////////////////////////////////////////////
+// Description:
+// Integer ALU Implementation File for a Custom Execution Engine
+//
+// References:
+// - Mark W. Welker EE4321 Execution Engine Supplied Code Texas State University
+// - ChatGPT 4o
+///////////////////////////////////////////////////////////////////////////////
 
+module IntegerAlu();
 
-module IntegerAlu(
-
-    );
 endmodule
